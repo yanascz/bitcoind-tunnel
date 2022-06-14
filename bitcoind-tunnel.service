@@ -1,0 +1,15 @@
+[Unit]
+Description=AutoSSH tunnel for bitcoind
+After=bitcoind.service
+
+[Service]
+Environment="AUTOSSH_GATETIME=0"
+ExecStart=/usr/bin/autossh -M 0 -N vps
+User=bitcoin
+Group=bitcoin
+TimeoutSec=60
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target
