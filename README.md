@@ -1,6 +1,9 @@
 # Reverse SSH tunnel for Bitcoin Core daemon
 
-If your [Bitcoin Core](https://bitcoin.org/en/full-node) daemon runs behind NAT and your ISP doesn't provide public IP address, you may run it as a [Tor hidden service](https://en.bitcoin.it/wiki/Setting_up_a_Tor_hidden_service) to make it publicly available. However, that might not be sufficient for some use cases and thus a reverse SSH tunnel might come handy.
+If your [Bitcoin Core](https://bitcoin.org/en/full-node) daemon runs behind NAT and your ISP doesn't provide a public
+IP address, you may run it as a [Tor hidden service](https://en.bitcoin.it/wiki/Setting_up_a_Tor_hidden_service)
+to make it publicly available. However, that might not be sufficient for some use cases and thus a reverse SSH tunnel
+might come handy.
 
 ## Prerequisites
 
@@ -13,7 +16,7 @@ If your [Bitcoin Core](https://bitcoin.org/en/full-node) daemon runs behind NAT 
 
 ### `vps`
 
-1. Create user `bitcoin` if not already present.
+1. Create system user `bitcoin` if not already present.
 1. Edit `/etc/ssh/sshd_config`:
    * Allow remote hosts to forwarded ports by setting `GatewayPorts` option to `yes`.
    * Append `bitcoin` user to `AllowUsers` if you already use this option.
@@ -37,7 +40,7 @@ If your [Bitcoin Core](https://bitcoin.org/en/full-node) daemon runs behind NAT 
    ```
    Replace `#FIXME` with the IP address of your `vps`.
 1. Use `ssh-copy-id` to [copy generated SSH key](https://www.ssh.com/academy/ssh/copy-id) to `vps`.
-1. Copy [`bitcoind-tunnel.service`](bitcoind-tunnel.service) to `/lib/systemd/system/bitcoind-tunnel.service`
+1. Copy [`bitcoind-tunnel.service`](bitcoind-tunnel.service) to `/etc/systemd/system/bitcoind-tunnel.service`
 1. Reload systemd services:
    ```bash
    $ sudo systemctl daemon-reload
@@ -48,7 +51,7 @@ If your [Bitcoin Core](https://bitcoin.org/en/full-node) daemon runs behind NAT 
    $ sudo systemctl enable bitcoind-tunnel.service
    ```
 
-That's it, your node is publicly available! You may check via [bitnodes.io](https://bitnodes.io/#join-the-network).
+That's it, your node is publicly available! You may check it via [bitnodes.io](https://bitnodes.io/#join-the-network).
 
 ## Resources
 
